@@ -19,7 +19,7 @@ ReactDOM.render(
         <BrowserRouter>
             <div>
                 <div className="row">
-                    <h1 className="app-title col-12">Simple Blog</h1>
+                    <h1 className="app-title col-12">Resource List</h1>
                 </div>
                 <div className="row">
                     <Switch>

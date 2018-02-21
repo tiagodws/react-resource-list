@@ -2,7 +2,7 @@
     "name": "react-resource-list",
     "version": "1.0.0",
     "main": "index.js",
-    "repository": "git@github.com:tiagodws/react-simple-blog.git",
+    "repository": "git@github.com:tiagodws/react-resource-list.git",
     "scripts": {
         "start": "webpack-dev-server --watch",
         "build": "webpack -p",
