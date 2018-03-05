@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { changeAuth } from "../actions";
@@ -8,7 +8,7 @@ import { changeAuth } from "../actions";
 class Header extends Component {
     render() {
         return (
-            <div className="row">
+            <div>
                 <nav className="navbar-main">
                     <div className="navbar-title">
                         <Link to="/">
@@ -34,16 +34,16 @@ class Header extends Component {
     }
 
     renderAuthButton() {
-        const { authenticated } = this.props;
+        const { authenticated, history } = this.props;
         if (authenticated)
             return (
-                <button className="btn btn-outline-primary" onClick={() => this.props.changeAuth(false)}>
+                <button className="btn" onClick={() => changeAuth(false)}>
                     Sign Out
                 </button>
             );
         else
             return (
-                <button className="btn btn-outline-primary" onClick={() => this.props.changeAuth(true)}>
+                <button className="btn" onClick={() => history.push("signin")}>
                     Sign In
                 </button>
             );
@@ -54,9 +54,10 @@ function mapStateToProps({ authenticated }) {
     return { authenticated };
 }
 
-export default connect(mapStateToProps, { changeAuth })(Header);
+export default connect(mapStateToProps, { changeAuth })(withRouter(Header));
 
 Header.propTypes = {
+    history: PropTypes.any,
     authenticated: PropTypes.bool,
     changeAuth: PropTypes.func,
 };

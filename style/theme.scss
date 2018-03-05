@@ -1,0 +1,102 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans|Roboto");
+@import url("https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css");
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+@import "defaults";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+    font-family: "Open Sans", sans-serif;
+}
+
+body {
+    background-color: #eee;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+}
+
+a,
+a:hover,
+a:focus,
+a:active,
+a:visited {
+    text-decoration: none;
+}
+
+.btn-link:hover,
+.btn-link:focus {
+    text-decoration: none;
+}
+
+.app-title {
+    margin-bottom: 12px;
+}
+
+.btn {
+    transition: color 0.5s ease, background-color 0.5s ease, border-color 0.5s ease;
+    background: none;
+    border-radius: 5px;
+    color: inherit;
+    border-width: 1px;
+    border-style: solid;
+    padding: 0.6em 1em;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+    min-width: 100px;
+    display: block;
+    text-align: center;
+}
+
+.btn:hover {
+    color: darken($defaultColor, 60%);
+    border-color: darken($defaultColor, 20%);
+    background-color: rgba($defaultColor, 0.2);
+}
+
+.btn.btn-link {
+    border: none;
+    background-color: none;
+}
+
+.btn.btn-primary {
+    background-color: #1e88e5;
+    color: white;
+}
+
+.btn.btn-primary:hover {
+    border-color: darken($primaryColor, 10%);
+    background-color: darken($primaryColor, 10%);
+}
+
+.button-bar {
+    display: flex;
+}
+
+.button-bar .btn + .btn {
+    margin-left: $defaultSize;
+}
+
+.card-header {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: $primaryColor;
+    text-transform: uppercase;
+}
+
+.page-title {
+    font-size: 2em;
+    margin-bottom: $defaultSize;
+    width: 100%;
+    border-bottom: 1px solid $defaultColor;
+    padding-bottom: $defaultSize / 2;
+}
+
+.page-content {
+    padding: $defaultSize;
+}

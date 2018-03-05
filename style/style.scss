@@ -1,72 +1,7 @@
-@import url("https://fonts.googleapis.com/css?family=Open+Sans|Roboto");
-@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
-
-$mainColor: #555;
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Roboto", sans-serif;
-    font-family: "Open Sans", sans-serif;
-}
-
-body {
-    background-color: #eee;
-}
-
-ul {
-    list-style: none;
-    margin: 0;
-}
-
-a,
-a:hover,
-a:focus,
-a:active,
-a:visited {
-    text-decoration: none;
-}
-
-.btn-link:hover,
-.btn-link:focus {
-    text-decoration: none;
-}
-
-.app-title {
-    margin-bottom: 12px;
-}
+@import "defaults";
 
 .navbar-brand {
     font-weight: bold;
-}
-
-.btn {
-    transition: color 0.5s ease, background-color 0.5s ease, border-color 0.5s ease;
-    background: none;
-    border-radius: 5px;
-    color: inherit;
-    border-width: 1px;
-    border-style: solid;
-    border-color: $mainColor;
-    padding: 0.6em 1em;
-    font: inherit;
-    cursor: pointer;
-    outline: inherit;
-    min-width: 100px;
-    display: block;
-    text-align: center;
-}
-
-.btn:hover {
-    color: darken($mainColor, 60%);
-    border-color: darken($mainColor, 60%);
-    background-color: rgba($mainColor, 0.2);
-}
-
-.btn.btn-link {
-    border: none;
-    background-color: none;
 }
 
 .navbar-main {
@@ -74,16 +9,15 @@ a:visited {
     display: flex;
     border-style: solid;
     border-width: 0 0 2px 0;
-    border-color: $mainColor;
+    border-color: $primaryColor;
     width: 100%;
-    padding: 1em;
+    padding: 1em $defaultSize;
     align-items: center;
 }
 
 .navbar-title * {
     font-size: 1.2em;
-    font-weight: bold;
-    color: #555;
+    color: $primaryColor;
 }
 
 .navbar-logo {
@@ -93,17 +27,9 @@ a:visited {
 .navbar-list {
     flex: 1;
     display: inline-flex;
-    margin-left: 2em;
+    margin-left: $defaultSize;
 }
 
 .navbar-list > * + * {
-    margin-left: 1em;
-}
-
-.page-title {
-    margin-bottom: 15px;
-}
-
-.page-content {
-    padding: 20px;
+    margin-left: $defaultSize;
 }
