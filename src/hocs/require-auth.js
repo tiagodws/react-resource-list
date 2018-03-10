@@ -6,13 +6,13 @@ export default function(ComposedComponent) {
     class RequireAuth extends Component {
         componentWillMount() {
             const { authenticated, history } = this.props;
-            if (!authenticated) history.push("/");
+            if (!authenticated) history.push("auth/signin");
         }
 
         componentWillUpdate(nextProps) {
             const { history } = this.props;
             const { authenticated } = nextProps;
-            if (!authenticated) history.push("/");
+            if (!authenticated) history.push("auth/signin");
         }
 
         render() {
@@ -20,8 +20,8 @@ export default function(ComposedComponent) {
         }
     }
 
-    function mapStateToProps({ authenticated }) {
-        return { authenticated };
+    function mapStateToProps({ auth }) {
+        return { authenticated: auth.authenticated };
     }
 
     RequireAuth.propTypes = {

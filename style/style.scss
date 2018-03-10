@@ -1,7 +1,15 @@
 @import "defaults";
 
-.navbar-brand {
-    font-weight: bold;
+html,
+body,
+.app {
+    height: 100%;
+}
+
+.navbar-logo {
+    border: 2px solid;
+    padding: 10px;
+    border-radius: 8px;
 }
 
 .navbar-main {
@@ -32,4 +40,10 @@
 
 .navbar-list > * + * {
     margin-left: $defaultSize;
+}
+
+.auth {
+    height: 100%;
+    padding-top: 120px;
+    background: linear-gradient($primaryColor, darken($primaryColor, 20%));
 }

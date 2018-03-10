@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans|Roboto");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 @import url("https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css");
-@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
 @import "defaults";
 
 * {
@@ -65,7 +65,7 @@ a:visited {
 }
 
 .btn.btn-primary {
-    background-color: #1e88e5;
+    background-color: $primaryColor;
     color: white;
 }
 
@@ -74,19 +74,20 @@ a:visited {
     background-color: darken($primaryColor, 10%);
 }
 
-.button-bar {
-    display: flex;
-}
-
-.button-bar .btn + .btn {
-    margin-left: $defaultSize;
+.card-footer {
+    background: none;
+    text-align: center;
+    padding-bottom: 0;
 }
 
 .card-header {
+    background: none;
     font-size: 1.2em;
     font-weight: bold;
     color: $primaryColor;
     text-transform: uppercase;
+    text-align: center;
+    padding: $defaultSize;
 }
 
 .page-title {
@@ -99,4 +100,34 @@ a:visited {
 
 .page-content {
     padding: $defaultSize;
+}
+
+/* Rules for sizing the icon. */
+.material-icons.md-18 {
+    font-size: 18px;
+}
+.material-icons.md-24 {
+    font-size: 24px;
+}
+.material-icons.md-36 {
+    font-size: 36px;
+}
+.material-icons.md-48 {
+    font-size: 48px;
+}
+
+/* Rules for using icons as black on a light background. */
+.material-icons.dark {
+    color: rgba(0, 0, 0, 0.54);
+}
+.material-icons.dark.inactive {
+    color: rgba(0, 0, 0, 0.26);
+}
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.light {
+    color: rgba(255, 255, 255, 1);
+}
+.material-icons.light.inactive {
+    color: rgba(255, 255, 255, 0.3);
 }

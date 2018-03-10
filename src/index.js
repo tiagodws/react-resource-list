@@ -3,35 +3,27 @@ import ReactDOM from "react-dom";
 import ReduxPromise from "redux-promise";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { HashRouter, Route, Switch } from "react-router-dom";
+
+import requireAuth from "./hocs/require-auth";
+import App from "./components/app/app";
+import Auth from "./components/auth/auth";
 
 import "../style/theme.scss";
 import "../style/style.scss";
 
 import reducers from "./reducers";
-import Header from "./components/header";
-import Home from "./components/home";
-import Resources from "./components/resources";
-import requireAuth from "./components/require-auth";
-import Signin from "./components/auth/sign-in";
 
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
 
 ReactDOM.render(
     <Provider store={createStoreWithMiddleware(reducers)}>
-        <BrowserRouter>
-            <div>
-                <Header />
-                <div className="page-content">
-                    <Switch>
-                        <Route path="/resources" component={requireAuth(Resources)} />
-                        <Route path="/signin" component={Signin} />
-                        {/* <Route path="/signup" component={Signup} /> */}
-                        <Route path="/" component={Home} />
-                    </Switch>
-                </div>
-            </div>
-        </BrowserRouter>
+        <HashRouter>
+            <Switch>
+                <Route path="/auth" component={Auth} />
+                <Route path="/" component={requireAuth(App)} />
+            </Switch>
+        </HashRouter>
     </Provider>,
     document.querySelector(".app")
 );

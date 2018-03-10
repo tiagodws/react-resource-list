@@ -1,7 +1,10 @@
 import axios from "axios";
 
-export const CHANGE_AUTH = "change_auth";
-export const SIGN_IN_USER = "sign_in";
+const ROOT_URL = "http://localhost:3090";
+
+export const CHANGE_AUTH = "CHANGE_AUTH";
+export const SIGN_IN_USER = "SIGN_IN_USER";
+export const SIGN_OUT_USER = "SIGN_OUT_USER";
 
 export function changeAuth(isLoggedin) {
     return {
@@ -11,11 +14,17 @@ export function changeAuth(isLoggedin) {
 }
 
 export function signInUser({ email, password }) {
-    const url = ``;
+    const url = `${ROOT_URL}/signin`;
     const request = axios.post(url, { email, password });
 
     return {
         type: SIGN_IN_USER,
         payload: request,
+    };
+}
+
+export function signOutUser() {
+    return {
+        type: SIGN_OUT_USER,
     };
 }
