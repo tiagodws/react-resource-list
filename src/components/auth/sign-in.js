@@ -56,7 +56,7 @@ class SignIn extends Component {
 
                                 <div className="card-footer">
                                     <span>Not registered yet? </span>
-                                    <Link className="font-weight-bold" to="../">
+                                    <Link className="font-weight-bold" to="/auth/signup">
                                         Sign up
                                     </Link>
                                 </div>
@@ -74,7 +74,7 @@ class SignIn extends Component {
 
         return (
             <div className="input-group mb-3">
-                {icon ? (
+                {icon && (
                     <div className="input-group-prepend">
                         <span className="input-group-text">
                             <i className="material-icons md-18 dark" aria-hidden="true">
@@ -82,7 +82,7 @@ class SignIn extends Component {
                             </i>
                         </span>
                     </div>
-                ) : null}
+                )}
                 <input placeholder={label} className={inputClassName} type={type} required={required} {...input} />
                 {hasError ? <small className="form-text text-danger">{meta.error}</small> : ""}
             </div>

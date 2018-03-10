@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { reduxForm, Field } from "redux-form";
 import { Link } from "react-router-dom";
-import * as actions from "../../actions";
+import { signUpUser } from "../../actions";
 
 class SignUp extends Component {
     constructor(props) {
@@ -11,33 +11,61 @@ class SignUp extends Component {
         this.onFormSubmit = this.onFormSubmit.bind(this);
     }
 
-    onFormSubmit({ email, password }) {
-        const { signInUser } = this.props;
-        signInUser({ email, password });
+    onFormSubmit({ name, email, password }) {
+        const { signUpUser } = this.props;
+        signUpUser({ name, email, password });
     }
 
     render() {
-        const { handleSubmit } = this.props;
+        const { handleSubmit, error } = this.props;
         return (
             <div className="row">
-                <div className="offset-md-2 col-md-8 offset-lg-4 col-lg-4">
+                <div className="offset-md-2 col-md-8 offset-lg-3 col-lg-6 offset-xl-4 col-xl-4">
                     <div className="card">
-                        <h1 className="card-header">Sign in to your account</h1>
+                        <h1 className="card-header">Create a new account</h1>
                         <div className="card-body">
+                            {error && (
+                                <div className="alert alert-danger text-center" role="alert">
+                                    {error}
+                                </div>
+                            )}
+
                             <form onSubmit={handleSubmit(this.onFormSubmit)}>
                                 <div className="form-group">
-                                    <Field label="Email" name="email" component={this.renderField} icon="fa fa-envelope fa-fw" />
-                                    <Field label="Password" name="password" component={this.renderField} icon="fa fa-unlock-alt fa-fw" />
+                                    <Field
+                                        label="Name"
+                                        name="name"
+                                        component={this.renderField}
+                                        type="name"
+                                        required={true}
+                                        icon="person"
+                                    />
+                                    <Field
+                                        label="Email"
+                                        name="email"
+                                        component={this.renderField}
+                                        type="email"
+                                        required={true}
+                                        icon="email"
+                                    />
+                                    <Field
+                                        label="Password"
+                                        name="password"
+                                        component={this.renderField}
+                                        type="password"
+                                        required={true}
+                                        icon="lock"
+                                    />
                                 </div>
 
                                 <button type="submit" className="btn btn-primary btn-block mb-3">
-                                    Sign in
+                                    Sign Up
                                 </button>
 
                                 <div className="card-footer">
-                                    <span>Not registered yet? </span>
-                                    <Link className="font-weight-bold" to="../">
-                                        Sign up
+                                    <span>Already have an account? </span>
+                                    <Link className="font-weight-bold" to="/auth/signin">
+                                        Sign in
                                     </Link>
                                 </div>
                             </form>
@@ -48,20 +76,22 @@ class SignUp extends Component {
         );
     }
 
-    renderField({ input, meta, label, icon }) {
+    renderField({ input, meta, label, icon, type, required }) {
         const hasError = meta.touched && meta.error;
         const inputClassName = `form-control ${hasError ? "is-invalid" : ""}`;
 
         return (
             <div className="input-group mb-3">
-                {icon ? (
+                {icon && (
                     <div className="input-group-prepend">
                         <span className="input-group-text">
-                            <i className={icon} aria-hidden="true" />
+                            <i className="material-icons md-18 dark" aria-hidden="true">
+                                {icon}
+                            </i>
                         </span>
                     </div>
-                ) : null}
-                <input placeholder={label} className={inputClassName} type="text" {...input} />
+                )}
+                <input placeholder={label} className={inputClassName} type={type} required={required} {...input} />
                 {hasError ? <small className="form-text text-danger">{meta.error}</small> : ""}
             </div>
         );
@@ -74,14 +104,19 @@ function validate() {
     return errors;
 }
 
+function mapStateToProps({ auth }) {
+    return { error: auth.error };
+}
+
 export default reduxForm({
-    form: "signIn",
-    fields: ["email", "password"],
+    form: "signUp",
+    fields: ["name", "email", "password"],
     validate,
-})(connect(null, actions)(SignUp));
+})(connect(mapStateToProps, { signUpUser })(SignUp));
 
 SignUp.propTypes = {
     history: PropTypes.any,
-    signInUser: PropTypes.func,
+    signUpUser: PropTypes.func,
     handleSubmit: PropTypes.func,
+    error: PropTypes.string,
 };

@@ -1,13 +1,22 @@
-import { SIGN_IN_USER, SIGN_OUT_USER } from "../actions/";
+import { SIGN_IN_USER, SIGN_OUT_USER, SIGN_UP_USER } from "../actions/";
 
 export default function(state = {}, { type, payload }) {
     switch (type) {
-        case SIGN_IN_USER: {
-            const error = payload instanceof Error;
-            const { data, status } = error ? payload.response : payload;
+        case SIGN_UP_USER: {
+            const isError = payload instanceof Error;
+            const { data } = isError ? payload.response : payload;
 
-            if (error && status == 401) return { error: "Wrong username or password" };
-            else if (error) return { error: "It was not possible to sign-in right now. Please try again later." };
+            if (isError) return { error: data };
+
+            localStorage.setItem("token", data.token);
+            return { authenticated: true };
+        }
+        case SIGN_IN_USER: {
+            const isError = payload instanceof Error;
+            const { data, status } = isError ? payload.response : payload;
+
+            if (isError && status == 401) return { error: "Wrong username or password" };
+            else if (isError) return { error: "It was not possible to sign-in right now. Please try again later." };
 
             localStorage.setItem("token", data.token);
             return { authenticated: true };
