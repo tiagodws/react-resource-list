@@ -48,6 +48,7 @@ class SignUp extends Component {
                                         required={true}
                                         icon="email"
                                     />
+                                    <hr />
                                     <Field
                                         label="Password"
                                         name="password"
@@ -55,6 +56,14 @@ class SignUp extends Component {
                                         type="password"
                                         required={true}
                                         icon="lock"
+                                    />
+                                    <Field
+                                        label="Password Confirmation"
+                                        name="passwordConfirm"
+                                        component={this.renderField}
+                                        type="password"
+                                        required={true}
+                                        icon="lock_outline"
                                     />
                                 </div>
 
@@ -81,25 +90,29 @@ class SignUp extends Component {
         const inputClassName = `form-control ${hasError ? "is-invalid" : ""}`;
 
         return (
-            <div className="input-group mb-3">
-                {icon && (
-                    <div className="input-group-prepend">
-                        <span className="input-group-text">
-                            <i className="material-icons md-18 dark" aria-hidden="true">
-                                {icon}
-                            </i>
-                        </span>
-                    </div>
-                )}
-                <input placeholder={label} className={inputClassName} type={type} required={required} {...input} />
+            <div className="mb-3">
+                <div className="input-group">
+                    {icon && (
+                        <div className="input-group-prepend">
+                            <span className="input-group-text">
+                                <i className="material-icons md-18 dark" aria-hidden="true">
+                                    {icon}
+                                </i>
+                            </span>
+                        </div>
+                    )}
+                    <input placeholder={label} className={inputClassName} type={type} required={required} {...input} />
+                </div>
                 {hasError ? <small className="form-text text-danger">{meta.error}</small> : ""}
             </div>
         );
     }
 }
 
-function validate() {
+function validate({ password, passwordConfirm }) {
     const errors = {};
+
+    if (password !== passwordConfirm) errors.passwordConfirm = "Passwords don't match";
 
     return errors;
 }
@@ -110,7 +123,7 @@ function mapStateToProps({ auth }) {
 
 export default reduxForm({
     form: "signUp",
-    fields: ["name", "email", "password"],
+    fields: ["name", "email", "password", "passwordConfirm"],
     validate,
 })(connect(mapStateToProps, { signUpUser })(SignUp));
 
