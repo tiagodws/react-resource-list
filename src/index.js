@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import ReduxThunk from "redux-thunk";
-import ReduxLogger from "redux-logger";
+import { createLogger } from "redux-logger";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import { HashRouter, Route, Switch } from "react-router-dom";
@@ -17,7 +17,8 @@ import reducers from "./reducers";
 
 import { AUTH_USER } from "./actions/index";
 
-const createStoreWithMiddleware = applyMiddleware(ReduxThunk, ReduxLogger)(createStore);
+const logger = createLogger({ collapsed: true, predicate: (getState, action) => !action.type.includes("@@redux-form") });
+const createStoreWithMiddleware = applyMiddleware(ReduxThunk, logger)(createStore);
 const store = createStoreWithMiddleware(reducers);
 
 const token = localStorage.getItem("token");

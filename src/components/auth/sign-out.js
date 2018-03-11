@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { signOutUser } from "../../actions";
+import { deauthUser } from "../../actions";
 
 class SignOut extends Component {
     constructor(props) {
@@ -21,8 +21,8 @@ class SignOut extends Component {
     }
 
     componentWillMount() {
-        const { signOutUser } = this.props;
-        signOutUser();
+        const { deauthUser } = this.props;
+        deauthUser();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -35,10 +35,10 @@ function mapStateToProps({ auth }) {
     return { authenticated: auth.authenticated };
 }
 
-export default connect(mapStateToProps, { signOutUser })(SignOut);
+export default connect(mapStateToProps, { deauthUser })(SignOut);
 
 SignOut.propTypes = {
     authenticated: PropTypes.bool,
     history: PropTypes.any,
-    signOutUser: PropTypes.func,
+    deauthUser: PropTypes.func,
 };
