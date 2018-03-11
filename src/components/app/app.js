@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Route } from "react-router-dom";
 
 import Header from "./header";
-import Resources from "./resources";
+import Home from "./home";
 
 class App extends Component {
     render() {
@@ -11,8 +11,9 @@ class App extends Component {
         return (
             <div>
                 <Header />
-                <div className="page-content container-fluid">App</div>
-                <Route path={`${match.url}/resources`} component={Resources} />
+                <div className="page-content container-fluid">
+                    <Route path={`${match.url}/`} component={Home} />
+                </div>
             </div>
         );
     }

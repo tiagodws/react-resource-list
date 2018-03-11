@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import ReduxPromise from "redux-promise";
+import ReduxThunk from "redux-thunk";
+import ReduxLogger from "redux-logger";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import { HashRouter, Route, Switch } from "react-router-dom";
@@ -14,10 +15,16 @@ import "../style/style.scss";
 
 import reducers from "./reducers";
 
-const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
+import { AUTH_USER } from "./actions/index";
+
+const createStoreWithMiddleware = applyMiddleware(ReduxThunk, ReduxLogger)(createStore);
+const store = createStoreWithMiddleware(reducers);
+
+const token = localStorage.getItem("token");
+if (token) store.dispatch({ type: AUTH_USER });
 
 ReactDOM.render(
-    <Provider store={createStoreWithMiddleware(reducers)}>
+    <Provider store={store}>
         <HashRouter>
             <Switch>
                 <Route path="/auth" component={Auth} />

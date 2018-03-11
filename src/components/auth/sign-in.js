@@ -18,6 +18,7 @@ class SignIn extends Component {
 
     render() {
         const { handleSubmit, error } = this.props;
+
         return (
             <div className="row">
                 <div className="offset-md-2 col-md-8 offset-lg-3 col-lg-6 offset-xl-4 col-xl-4">

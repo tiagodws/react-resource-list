@@ -1,32 +1,22 @@
-import { SIGN_IN_USER, SIGN_OUT_USER, SIGN_UP_USER } from "../actions/";
+import { AUTH_USER, DEAUTH_USER, AUTH_REQUEST, AUTH_REQUEST_FAIL } from "../actions/";
 
 export default function(state = {}, { type, payload }) {
     switch (type) {
-        case SIGN_UP_USER: {
-            const isError = payload instanceof Error;
-            const { data } = isError ? payload.response : payload;
-
-            if (isError) return { error: data };
-
-            localStorage.setItem("token", data.token);
-            return { authenticated: true };
-        }
-        case SIGN_IN_USER: {
-            const isError = payload instanceof Error;
-            const { data, status } = isError ? payload.response : payload;
-
-            if (isError && status == 401) return { error: "Wrong username or password" };
-            else if (isError) return { error: "It was not possible to sign-in right now. Please try again later." };
-
-            localStorage.setItem("token", data.token);
-            return { authenticated: true };
-        }
-        case SIGN_OUT_USER: {
-            localStorage.removeItem("token");
+        case DEAUTH_USER: {
             return { authenticated: false };
         }
-        default: {
-            return state;
+        case AUTH_USER: {
+            return { authenticated: true };
+        }
+        case AUTH_REQUEST: {
+            return { ...state, error: undefined };
+        }
+        case AUTH_REQUEST_FAIL: {
+            const { status, data } = payload.response;
+
+            if (status == 401) return { error: "Wrong username or password" };
+            return { ...state, error: data };
         }
     }
+    return state;
 }

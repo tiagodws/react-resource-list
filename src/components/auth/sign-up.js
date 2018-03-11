@@ -17,18 +17,19 @@ class SignUp extends Component {
     }
 
     render() {
-        const { handleSubmit, error } = this.props;
+        const { handleSubmit, submitSucceeded, error } = this.props;
         return (
             <div className="row">
                 <div className="offset-md-2 col-md-8 offset-lg-3 col-lg-6 offset-xl-4 col-xl-4">
                     <div className="card">
                         <h1 className="card-header">Create a new account</h1>
                         <div className="card-body">
-                            {error && (
-                                <div className="alert alert-danger text-center" role="alert">
-                                    {error}
-                                </div>
-                            )}
+                            {error &&
+                                submitSucceeded && (
+                                    <div className="alert alert-danger text-center" role="alert">
+                                        {error}
+                                    </div>
+                                )}
 
                             <form onSubmit={handleSubmit(this.onFormSubmit)}>
                                 <div className="form-group">
@@ -131,5 +132,6 @@ SignUp.propTypes = {
     history: PropTypes.any,
     signUpUser: PropTypes.func,
     handleSubmit: PropTypes.func,
+    submitSucceeded: PropTypes.bool,
     error: PropTypes.string,
 };

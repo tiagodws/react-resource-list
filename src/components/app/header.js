@@ -17,11 +17,6 @@ class Header extends Component {
                                 Home
                             </Link>
                         </li>
-                        <li className="navbar-item">
-                            <Link className="btn btn-link" to="/resources">
-                                Resources
-                            </Link>
-                        </li>
                     </ul>
                     <div className="navbar-user">
                         <Link className="btn" to="/auth/signout">

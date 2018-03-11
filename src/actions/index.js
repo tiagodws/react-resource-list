@@ -2,40 +2,53 @@ import axios from "axios";
 
 const ROOT_URL = "http://localhost:3090";
 
-export const CHANGE_AUTH = "CHANGE_AUTH";
-export const SIGN_UP_USER = "SIGN_UP_USER";
-export const SIGN_IN_USER = "SIGN_IN_USER";
-export const SIGN_OUT_USER = "SIGN_OUT_USER";
+export const AUTH_USER = "AUTH_USER";
+export const DEAUTH_USER = "DEAUTH_USER";
+export const AUTH_REQUEST = "AUTH_REQUEST";
+export const AUTH_REQUEST_FAIL = "AUTH_REQUEST_FAIL";
 
-export function changeAuth(isLoggedin) {
+export function authUser(token) {
+    localStorage.setItem("token", token);
+
     return {
-        type: CHANGE_AUTH,
-        payload: isLoggedin,
+        type: AUTH_USER,
+    };
+}
+
+export function deauthUser() {
+    localStorage.removeItem("token");
+
+    return {
+        type: DEAUTH_USER,
     };
 }
 
 export function signUpUser({ name, email, password }) {
-    const url = `${ROOT_URL}/signup`;
-    const request = axios.post(url, { name, email, password });
+    return dispatch => {
+        const url = `${ROOT_URL}/signup`;
+        const request = axios
+            .post(url, { name, email, password })
+            .then(res => dispatch(authUser(res.data.token)))
+            .catch(err => dispatch({ type: AUTH_REQUEST_FAIL, payload: err }));
 
-    return {
-        type: SIGN_UP_USER,
-        payload: request,
+        dispatch({
+            type: AUTH_REQUEST,
+            payload: request,
+        });
     };
 }
 
 export function signInUser({ email, password }) {
-    const url = `${ROOT_URL}/signin`;
-    const request = axios.post(url, { email, password });
+    return dispatch => {
+        const url = `${ROOT_URL}/signin`;
+        const request = axios
+            .post(url, { email, password })
+            .then(res => dispatch(authUser(res.data.token)))
+            .catch(err => dispatch({ type: AUTH_REQUEST_FAIL, payload: err }));
 
-    return {
-        type: SIGN_IN_USER,
-        payload: request,
-    };
-}
-
-export function signOutUser() {
-    return {
-        type: SIGN_OUT_USER,
+        dispatch({
+            type: AUTH_REQUEST,
+            payload: request,
+        });
     };
 }
