@@ -4,7 +4,7 @@
     "main": "index.js",
     "repository": "git@github.com:tiagodws/react-resource-list.git",
     "scripts": {
-        "start": "webpack-dev-server --watch --hot --inline --env=development",
+        "start": "webpack-dev-server --watch --hot --inline",
         "build": "webpack -p",
         "postinstall": "npm run build",
         "heroku-prebuild": "npm install --dev"
