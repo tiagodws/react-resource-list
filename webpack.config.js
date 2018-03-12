@@ -4,11 +4,11 @@ const path = require("path");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-module.exports = () => {
+module.exports = env => {
     const BUILD_FOLDER = "dist";
     const BUNDLE_NAME = "bundle";
 
-    return {
+    const config = {
         context: path.join(__dirname, "src"),
         entry: ["./index.js"],
         output: {
@@ -52,9 +52,6 @@ module.exports = () => {
                 template: "index.html",
             }),
             new ExtractTextPlugin("style.css"),
-            new webpack.DefinePlugin({
-                "process.env.BACKEND_URL": JSON.stringify("http://localhost:3090"),
-            }),
         ],
         devtool: "source-map",
         devServer: {
@@ -66,4 +63,14 @@ module.exports = () => {
             overlay: true,
         },
     };
+
+    if (env == "development") {
+        config.plugins.push(
+            new webpack.DefinePlugin({
+                "process.env.BACKEND_URL": JSON.stringify("http://localhost:3090"),
+            })
+        );
+    }
+
+    return config;
 };
