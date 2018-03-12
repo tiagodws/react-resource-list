@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const ROOT_URL = "http://localhost:3090";
+const ROOT_URL = process.env.BACKEND_URL;
 
 export const AUTH_USER = "AUTH_USER";
 export const DEAUTH_USER = "DEAUTH_USER";

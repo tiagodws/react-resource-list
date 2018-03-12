@@ -1,3 +1,4 @@
+const webpack = require("webpack");
 const path = require("path");
 
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
@@ -51,6 +52,9 @@ module.exports = () => {
                 template: "index.html",
             }),
             new ExtractTextPlugin("style.css"),
+            new webpack.DefinePlugin({
+                "process.env.BACKEND_URL": JSON.stringify("http://localhost:3090"),
+            }),
         ],
         devtool: "source-map",
         devServer: {
